@@ -1,0 +1,364 @@
+
+                <html>
+                <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        <div id="dashboard-discovery-hub" class="min-h-[840px] bg-neutral-900 text-white relative overflow-hidden pb-20">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900"></div>
+    <div class="absolute top-20 right-10 w-32 h-32 border border-neutral-700 rounded-full opacity-20"></div>
+    <div class="absolute bottom-40 left-5 w-20 h-20 border border-neutral-700 rounded-full opacity-20"></div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="relative z-10 px-6 pt-8 pb-4">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-neutral-800 border border-neutral-700 rounded-lg flex items-center justify-center">
+          <i class="fa-solid fa-gamepad text-white"></i>
+        </div>
+        <div>
+          <h1 class="text-lg">Discovery Hub</h1>
+          <p class="text-xs text-neutral-400">Personalized for you</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button class="w-10 h-10 bg-neutral-800 border border-neutral-700 rounded-lg flex items-center justify-center">
+          <i class="fa-solid fa-bell text-neutral-400"></i>
+        </button>
+        <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=8472" alt="Profile" class="w-10 h-10 rounded-lg border border-neutral-700">
+      </div>
+    </div>
+
+    <!-- Insight Points Balance -->
+    <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-4 backdrop-blur-sm">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <i class="fa-solid fa-lightbulb text-white mr-3"></i>
+          <div>
+            <p class="text-xs text-neutral-400">Insight Points</p>
+            <p class="text-lg">1,247</p>
+          </div>
+        </div>
+        <button class="bg-white text-neutral-900 px-4 py-2 rounded-lg text-xs">
+          Redeem
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="relative z-10 px-6">
+    <!-- AI Match of the Day -->
+    <section id="ai-match-section" class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm">AI Match of the Day</h2>
+        <i class="fa-solid fa-sparkles text-neutral-400"></i>
+      </div>
+      
+      <div class="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden backdrop-blur-sm">
+        <!-- Game Image -->
+        <div class="w-full h-48 bg-neutral-700 flex items-center justify-center">
+          <p class="text-neutral-400 text-sm">Cyberpunk RPG Cover Art</p>
+        </div>
+        
+        <!-- Match Info -->
+        <div class="p-4">
+          <div class="flex items-center mb-3">
+            <div class="bg-white text-neutral-900 px-3 py-1 rounded-lg text-xs mr-2">
+              98% Match
+            </div>
+            <div class="bg-neutral-700 px-3 py-1 rounded-lg text-xs">
+              For your playstyle
+            </div>
+          </div>
+          
+          <h3 class="text-lg mb-2">Neon Dystopia: Chronicles</h3>
+          <p class="text-xs text-neutral-400 mb-4">Deep narrative RPG with tactical combat and branching storylines</p>
+          
+          <!-- Game DNA Tags -->
+          <div class="mb-4">
+            <p class="text-xs text-neutral-400 mb-2">Game DNA</p>
+            <div class="flex flex-wrap gap-2">
+              <button class="bg-neutral-700 border border-neutral-600 px-3 py-1 rounded-lg text-xs">High Difficulty</button>
+              <button class="bg-neutral-700 border border-neutral-600 px-3 py-1 rounded-lg text-xs">Narrative-Driven</button>
+              <button class="bg-neutral-700 border border-neutral-600 px-3 py-1 rounded-lg text-xs">Long Sessions</button>
+              <button class="bg-neutral-700 border border-neutral-600 px-3 py-1 rounded-lg text-xs">RPG Elements</button>
+            </div>
+          </div>
+          
+          <!-- Quick Actions -->
+          <div class="flex space-x-2">
+            <button class="flex-1 bg-white text-neutral-900 py-3 rounded-lg text-sm flex items-center justify-center">
+              <i class="fa-solid fa-bookmark mr-2"></i>
+              Save
+            </button>
+            <button class="flex-1 bg-neutral-700 border border-neutral-600 py-3 rounded-lg text-sm flex items-center justify-center">
+              <i class="fa-solid fa-plus mr-2"></i>
+              Add to Quest
+            </button>
+            <button class="w-12 bg-neutral-700 border border-neutral-600 rounded-lg flex items-center justify-center">
+              <i class="fa-solid fa-eye-slash text-neutral-400"></i>
+            </button>
+          </div>
+          
+          <!-- Reward Potential -->
+          <div class="mt-4 bg-neutral-700 rounded-lg p-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-neutral-400">Reward Potential</span>
+              <span class="text-sm text-white">+150 pts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game DNA Visualization -->
+    <section id="game-dna-viz-section" class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm">Your Gaming DNA</h2>
+        <button class="text-xs text-neutral-400">Edit Profile</button>
+      </div>
+      
+      <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-4 backdrop-blur-sm">
+        <!-- Radar Chart Placeholder -->
+        <div class="w-full h-40 bg-neutral-700 rounded-lg flex items-center justify-center mb-4">
+          <div class="text-center">
+            <i class="fa-solid fa-chart-radar text-neutral-500 text-3xl mb-2"></i>
+            <p class="text-neutral-400 text-xs">Radar Chart Visualization</p>
+            <p class="text-neutral-500 text-xs">Difficulty • Pace • Depth • Social</p>
+          </div>
+        </div>
+        
+        <!-- Top Attributes -->
+        <div class="grid grid-cols-2 gap-2">
+          <div class="bg-neutral-700 rounded-lg p-3">
+            <p class="text-xs text-neutral-400 mb-1">Preferred Difficulty</p>
+            <p class="text-sm">High Challenge</p>
+          </div>
+          <div class="bg-neutral-700 rounded-lg p-3">
+            <p class="text-xs text-neutral-400 mb-1">Session Length</p>
+            <p class="text-sm">Long (2-4h)</p>
+          </div>
+          <div class="bg-neutral-700 rounded-lg p-3">
+            <p class="text-xs text-neutral-400 mb-1">Game Depth</p>
+            <p class="text-sm">Story-Rich</p>
+          </div>
+          <div class="bg-neutral-700 rounded-lg p-3">
+            <p class="text-xs text-neutral-400 mb-1">Play Style</p>
+            <p class="text-sm">Solo Focus</p>
+          </div>
+        </div>
+        
+        <button class="w-full mt-3 text-xs text-neutral-400 flex items-center justify-center">
+          <span>Tap tags to refine your feed</span>
+          <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Trending in your DNA -->
+    <section id="trending-dna-section" class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm">Trending in Your DNA</h2>
+        <button class="text-xs text-neutral-400">See All</button>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-3 backdrop-blur-sm flex">
+          <div class="w-20 h-20 bg-neutral-700 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+            <p class="text-neutral-500 text-xs text-center px-1">Game Cover</p>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="text-sm truncate mr-2">Stellar Odyssey</h3>
+              <div class="bg-white text-neutral-900 px-2 py-0.5 rounded text-xs flex-shrink-0">95%</div>
+            </div>
+            <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Space exploration with deep crafting mechanics</p>
+            <div class="flex flex-wrap gap-1">
+              <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Sci-Fi</span>
+              <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Exploration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-3 backdrop-blur-sm flex">
+          <div class="w-20 h-20 bg-neutral-700 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+            <p class="text-neutral-500 text-xs text-center px-1">Game Cover</p>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="text-sm truncate mr-2">Shadow Tactics</h3>
+              <div class="bg-white text-neutral-900 px-2 py-0.5 rounded text-xs flex-shrink-0">92%</div>
+            </div>
+            <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Stealth strategy with tactical depth</p>
+            <div class="flex flex-wrap gap-1">
+              <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Strategy</span>
+              <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Stealth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Releases -->
+    <section id="new-releases-section" class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm">New Releases</h2>
+        <button class="text-xs text-neutral-400">See All</button>
+      </div>
+      
+      <div class="flex space-x-3 overflow-x-auto pb-2 -mx-6 px-6">
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden backdrop-blur-sm flex-shrink-0 w-40">
+          <div class="w-full h-24 bg-neutral-700 flex items-center justify-center">
+            <p class="text-neutral-500 text-xs">Cover</p>
+          </div>
+          <div class="p-3">
+            <div class="bg-neutral-700 px-2 py-1 rounded text-xs mb-2 inline-block">New</div>
+            <h3 class="text-sm mb-1 truncate">Rogue Legends</h3>
+            <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Roguelike dungeon crawler</p>
+            <div class="bg-white text-neutral-900 px-2 py-0.5 rounded text-xs inline-block">89%</div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden backdrop-blur-sm flex-shrink-0 w-40">
+          <div class="w-full h-24 bg-neutral-700 flex items-center justify-center">
+            <p class="text-neutral-500 text-xs">Cover</p>
+          </div>
+          <div class="p-3">
+            <div class="bg-neutral-700 px-2 py-1 rounded text-xs mb-2 inline-block">New</div>
+            <h3 class="text-sm mb-1 truncate">Mech Warfare</h3>
+            <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Tactical mech combat</p>
+            <div class="bg-white text-neutral-900 px-2 py-0.5 rounded text-xs inline-block">91%</div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden backdrop-blur-sm flex-shrink-0 w-40">
+          <div class="w-full h-24 bg-neutral-700 flex items-center justify-center">
+            <p class="text-neutral-500 text-xs">Cover</p>
+          </div>
+          <div class="p-3">
+            <div class="bg-neutral-700 px-2 py-1 rounded text-xs mb-2 inline-block">New</div>
+            <h3 class="text-sm mb-1 truncate">Pixel Realms</h3>
+            <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Retro platformer RPG</p>
+            <div class="bg-white text-neutral-900 px-2 py-0.5 rounded text-xs inline-block">87%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reward-Boosted Picks -->
+    <section id="reward-boosted-section" class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm">Reward-Boosted Picks</h2>
+        <div class="flex items-center">
+          <i class="fa-solid fa-clock text-neutral-400 text-xs mr-1"></i>
+          <span class="text-xs text-neutral-400">2h left</span>
+        </div>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-3 backdrop-blur-sm">
+          <div class="flex">
+            <div class="w-20 h-20 bg-neutral-700 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <p class="text-neutral-500 text-xs text-center px-1">Game Cover</p>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between mb-1">
+                <h3 class="text-sm truncate mr-2">Ancient Ruins Quest</h3>
+                <div class="bg-white text-neutral-900 px-2 py-1 rounded text-xs flex-shrink-0">2x Points</div>
+              </div>
+              <p class="text-xs text-neutral-400 mb-2 line-clamp-2">Archaeological adventure puzzle game</p>
+              <div class="flex items-center justify-between">
+                <div class="flex flex-wrap gap-1">
+                  <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Puzzle</span>
+                  <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Adventure</span>
+                </div>
+                <span class="text-xs text-neutral-400">+200 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-3 backdrop-blur-sm">
+          <div class="flex">
+            <div class="w-20 h-20 bg-neutral-700 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <p class="text-neutral-500 text-xs text-center px-1">Game Cover</p>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between mb-1">
+                <h3 class="text-sm truncate mr-2">Drift Kings Racing</h3>
+                <div class="bg-white text-neutral-900 px-2 py-1 rounded text-xs flex-shrink-0">3x Points</div>
+              </div>
+              <p class="text-xs text-neutral-400 mb-2 line-clamp-2">High-speed arcade racing experience</p>
+              <div class="flex items-center justify-between">
+                <div class="flex flex-wrap gap-1">
+                  <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Racing</span>
+                  <span class="bg-neutral-700 px-2 py-0.5 rounded text-xs">Arcade</span>
+                </div>
+                <span class="text-xs text-neutral-400">+300 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav id="footer" class="fixed bottom-0 left-0 right-0 bg-neutral-900 border-t border-neutral-800 z-20">
+    <div class="flex justify-around items-center h-20 px-4">
+      <button class="flex flex-col items-center justify-center flex-1">
+        <i class="fa-solid fa-compass text-white text-xl mb-1"></i>
+        <span class="text-xs text-white">Discovery</span>
+      </button>
+      <button class="flex flex-col items-center justify-center flex-1">
+        <i class="fa-solid fa-search text-neutral-400 text-xl mb-1"></i>
+        <span class="text-xs text-neutral-400">AI Search</span>
+      </button>
+      <button class="flex flex-col items-center justify-center flex-1">
+        <i class="fa-solid fa-trophy text-neutral-400 text-xl mb-1"></i>
+        <span class="text-xs text-neutral-400">Quests</span>
+      </button>
+      <button class="flex flex-col items-center justify-center flex-1">
+        <i class="fa-solid fa-bookmark text-neutral-400 text-xl mb-1"></i>
+        <span class="text-xs text-neutral-400">Library</span>
+      </button>
+      <button class="flex flex-col items-center justify-center flex-1">
+        <i class="fa-solid fa-user text-neutral-400 text-xl mb-1"></i>
+        <span class="text-xs text-neutral-400">Profile</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Bottom Accent -->
+  <div class="absolute bottom-20 left-0 w-full h-1 bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800"></div>
+</div>
+
+                        </body>
+                        </html>
+                        
