@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard (Discovery Hub)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            base: '#121212',
+                            card: '#1A1A2E',
+                            cardHover: '#252839',
+                            violet: '#8A2BE2',
+                            violetGlow: 'rgba(138, 43, 226, 0.5)',
+                            emerald: '#50C878',
+                            emeraldGlow: 'rgba(80, 200, 120, 0.4)',
+                            text: '#F2F2F2',
+                            textMuted: '#94969F',
+                            border: '#2A2A35'
+                        }
+                    },
+                    backgroundImage: {
+                        'cyber-gradient': 'linear-gradient(180deg, #121212 0%, #1A1A2E 100%)',
+                        'card-gradient': 'linear-gradient(145deg, #1E1E21 0%, #121212 100%)',
+                    },
+                    boxShadow: {
+                        'neon-violet': '0 0 15px rgba(138, 43, 226, 0.3)',
+                        'neon-emerald': '0 4px 20px rgba(80, 200, 120, 0.4)',
+                        'card-inset': 'inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+        }
+        ::-webkit-scrollbar { display: none; }
+        
+        .glass-panel {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+        
+        .hex-bg {
+            background-image: radial-gradient(rgba(138, 43, 226, 0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .scanlines::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        
+        .chip-active {
+            background-color: rgba(138, 43, 226, 0.2);
+            border-color: #8A2BE2;
+            color: #F2F2F2;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        #mobile-container {
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        #scrollable-content {
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+    </style>
+</head>
+<body class="bg-cyber-base">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[50%] bg-cyber-violet opacity-20 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#3F51B5] opacity-10 blur-[100px] rounded-full"></div>
+        <div class="absolute inset-0 hex-bg z-0"></div>
+        <div class="absolute inset-0 scanlines opacity-30"></div>
+    </div>
+
+    <!-- Main Mobile Container -->
+    <main id="mobile-container" class="w-full max-w-[375px] flex flex-col relative z-10 mx-auto bg-cyber-base md:max-w-md lg:max-w-lg xl:max-w-xl">
+        
+        <!-- Header Shell -->
+        <header id="header" class="flex items-center justify-between w-full px-6 py-4 relative z-20 border-b border-cyber-border bg-cyber-base/80 backdrop-blur-md flex-shrink-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-cyber-violet/20 border border-cyber-violet flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="User Profile" class="w-full h-full rounded-full object-cover">
+                </div>
+                <div>
+                    <h1 class="text-white font-bold text-sm">Discovery Hub</h1>
+                    <p class="text-cyber-emerald text-[10px] font-mono flex items-center gap-1">
+                        <i class="fa-solid fa-bolt"></i> 2,450 IP
+                    </p>
+                </div>
+            </div>
+            <button class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-cyber-textMuted hover:text-white transition-colors">
+                <i class="fa-solid fa-bell text-sm"></i>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-cyber-emerald rounded-full shadow-[0_0_5px_#50C878]"></span>
+            </button>
+        </header>
+
+        <!-- Main Content Scrollable Area -->
+        <div id="scrollable-content" class="flex-1 space-y-8 px-6 py-6 pb-24">
+
+            <!-- AI Match of the Day Hero -->
+            <section id="ai-match-hero" class="w-full">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-white font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-cyber-violet"></i> AI Match of the Day
+                    </h2>
+                    <span class="text-[10px] text-cyber-textMuted font-mono">Refreshed</span>
+                </div>
+                
+                <div class="glass-panel rounded-[16px] overflow-hidden border border-cyber-violet/30 shadow-[0_0_20px_rgba(138,43,226,0.15)] relative">
+                    <!-- Hero Image Area -->
+                    <div class="h-48 w-full relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-card to-transparent z-10"></div>
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e7ef30672f-31bdbbc0a3a1c416ce3c.png" alt="cyberpunk sci-fi rpg game cover art with neon cityscapes and dark atmosphere" />
+                        <div class="absolute top-3 left-3 z-20 bg-cyber-base/80 backdrop-blur-md border border-cyber-emerald/50 px-2.5 py-1 rounded-md flex items-center gap-1.5 shadow-[0_0_10px_rgba(80,200,120,0.2)]">
+                            <i class="fa-solid fa-fingerprint text-cyber-emerald text-[10px]"></i>
+                            <span class="text-white text-xs font-bold font-mono">98% Match</span>
+                        </div>
+                        <div class="absolute top-3 right-3 z-20 bg-cyber-base/80 backdrop-blur-md border border-cyber-border px-2 py-1 rounded-md">
+                            <span class="text-cyber-textMuted text-[10px] font-mono">+300 IP</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area -->
+                    <div class="p-4 relative z-20 -mt-8">
+                        <h3 class="text-white font-bold text-lg mb-1">Neon Syndicate</h3>
+                        <p class="text-cyber-textMuted text-xs mb-3 line-clamp-2">Immersive cyberpunk RPG focusing on deep narrative choices and tactical cyber-warfare. Perfect for your preference of rich lore.</p>
+                        
+                        <!-- Quick Actions -->
+                        <div class="flex gap-2 mt-4">
+                            <button class="flex-1 bg-cyber-emerald hover:bg-[#45b56a] text-cyber-base font-bold text-xs py-2.5 rounded-lg shadow-neon-emerald transition-transform active:scale-95 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add to Quest
+                            </button>
+                            <button class="w-10 h-10 bg-cyber-base border border-cyber-border rounded-lg flex items-center justify-center text-cyber-textMuted hover:text-white hover:border-cyber-violet transition-colors">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </button>
+                            <button class="w-10 h-10 bg-cyber-base border border-cyber-border rounded-lg flex items-center justify-center text-cyber-textMuted hover:text-white hover:border-red-500 transition-colors">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game DNA Tag Cloud -->
+            <section id="dna-tag-cloud" class="w-full">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-white font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-dna text-cyber-violet"></i> Your Game DNA
+                    </h2>
+                    <button class="text-[10px] text-cyber-emerald font-mono hover:underline">Edit Profile</button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-violet text-white bg-cyber-violet/20 shadow-[0_0_10px_rgba(138,43,226,0.3)] transition-all">
+                        High Difficulty
+                    </button>
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-border text-cyber-textMuted bg-cyber-base hover:border-cyber-violet/50 transition-all">
+                        Loot-Heavy
+                    </button>
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-violet text-white bg-cyber-violet/20 shadow-[0_0_10px_rgba(138,43,226,0.3)] transition-all">
+                        Narrative-Driven
+                    </button>
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-border text-cyber-textMuted bg-cyber-base hover:border-cyber-violet/50 transition-all">
+                        Sci-Fi
+                    </button>
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-border text-cyber-textMuted bg-cyber-base hover:border-cyber-violet/50 transition-all">
+                        Short Sessions
+                    </button>
+                    <button class="px-3 py-1.5 rounded-full text-[10px] font-mono border border-cyber-border text-cyber-textMuted bg-cyber-base hover:border-cyber-violet/50 transition-all">
+                        Co-op
+                    </button>
+                </div>
+            </section>
+
+            <!-- Game DNA Radar Chart -->
+            <section id="dna-radar-chart" class="w-full">
+                <div class="glass-panel rounded-xl p-4 border border-cyber-border relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-cyber-violet opacity-10 blur-[30px] rounded-bl-full"></div>
+                    <h3 class="text-white text-xs font-semibold mb-2">Playstyle Analysis</h3>
+                    <div id="radarChart" class="w-full h-[200px]"></div>
+                </div>
+            </section>
+
+            <!-- Reward-Boosted Picks -->
+            <section id="reward-boosted" class="w-full">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-white font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-trend-up text-cyber-emerald"></i> Reward-Boosted
+                    </h2>
+                    <span class="text-[10px] text-cyber-textMuted font-mono">View All</span>
+                </div>
+                
+                <div class="flex overflow-x-auto gap-4 pb-4 -mx-6 px-6" style="scrollbar-width: none;">
+                    <!-- Card 1 -->
+                    <div class="min-w-[140px] w-[140px] glass-panel rounded-xl border border-cyber-emerald/30 overflow-hidden relative group">
+                        <div class="h-20 w-full relative">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/94371cdb29-9e2ccf70c71465942b76.png" alt="fantasy mmorpg game art with glowing magical elements" />
+                            <div class="absolute top-2 right-2 bg-cyber-base/90 border border-cyber-emerald px-1.5 py-0.5 rounded text-[8px] font-mono text-cyber-emerald">
+                                2x IP BOOST
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h4 class="text-white text-xs font-bold truncate mb-1">Aetheria MMO</h4>
+                            <p class="text-cyber-textMuted text-[9px] mb-2">Fantasy • Co-op</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyber-violet text-[10px] font-mono">85% Match</span>
+                                <button class="w-6 h-6 rounded-md bg-cyber-emerald/20 text-cyber-emerald flex items-center justify-center hover:bg-cyber-emerald hover:text-cyber-base transition-colors">
+                                    <i class="fa-solid fa-plus text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="min-w-[140px] w-[140px] glass-panel rounded-xl border border-cyber-border overflow-hidden relative group">
+                        <div class="h-20 w-full relative">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/cce347015d-798df8f939f03832a422.png" alt="tactical shooter game art dark gritty style" />
+                            <div class="absolute top-2 right-2 bg-cyber-base/90 border border-cyber-emerald px-1.5 py-0.5 rounded text-[8px] font-mono text-cyber-emerald">
+                                1.5x IP BOOST
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h4 class="text-white text-xs font-bold truncate mb-1">Sector 7</h4>
+                            <p class="text-cyber-textMuted text-[9px] mb-2">Shooter • Tactical</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyber-violet text-[10px] font-mono">72% Match</span>
+                                <button class="w-6 h-6 rounded-md bg-cyber-emerald/20 text-cyber-emerald flex items-center justify-center hover:bg-cyber-emerald hover:text-cyber-base transition-colors">
+                                    <i class="fa-solid fa-plus text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending in Your DNA -->
+            <section id="trending-dna" class="w-full">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-white font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-cyber-violet"></i> Trending in DNA
+                    </h2>
+                </div>
+                
+                <div class="space-y-3">
+                    <!-- List Item 1 -->
+                    <div class="glass-panel rounded-xl p-3 border border-cyber-border flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/588984add0-8b14f06ce0ad5b516f06.png" alt="roguelike dungeon crawler game icon pixel art" />
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-white text-xs font-bold mb-0.5">Abyssal Descent</h4>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] text-cyber-textMuted border border-cyber-border px-1.5 py-0.5 rounded">Roguelike</span>
+                                <span class="text-[9px] text-cyber-textMuted border border-cyber-border px-1.5 py-0.5 rounded">Hard</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <div class="text-cyber-violet text-[10px] font-mono font-bold mb-1">94%</div>
+                            <div class="text-cyber-emerald text-[9px] font-mono">+150 IP</div>
+                        </div>
+                    </div>
+
+                    <!-- List Item 2 -->
+                    <div class="glass-panel rounded-xl p-3 border border-cyber-border flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/4cd0e2cad3-2e7b62251786f9042509.png" alt="space exploration indie game art minimal" />
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-white text-xs font-bold mb-0.5">Void Walker</h4>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] text-cyber-textMuted border border-cyber-border px-1.5 py-0.5 rounded">Sci-Fi</span>
+                                <span class="text-[9px] text-cyber-textMuted border border-cyber-border px-1.5 py-0.5 rounded">Story</span>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <div class="text-cyber-violet text-[10px] font-mono font-bold mb-1">88%</div>
+                            <div class="text-cyber-emerald text-[9px] font-mono">+100 IP</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Releases -->
+            <section id="new-releases" class="w-full mb-8">
+                 <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-white font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-star text-cyber-violet"></i> New Releases
+                    </h2>
+                </div>
+                <div class="glass-panel rounded-xl p-4 border border-cyber-border flex items-center justify-between">
+                     <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-cyber-card flex items-center justify-center border border-cyber-border">
+                             <i class="fa-solid fa-calendar-days text-cyber-textMuted"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white text-xs font-bold">This Week's Drops</h4>
+                            <p class="text-[10px] text-cyber-textMuted">12 new matches found</p>
+                        </div>
+                     </div>
+                     <button class="text-cyber-violet text-xs font-mono hover:text-white transition-colors">Browse</button>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Bottom Navigation Shell -->
+        <nav id="bottom-nav" class="w-full h-16 bg-cyber-base/95 backdrop-blur-xl border-t border-cyber-border z-30 px-6 flex items-center justify-between flex-shrink-0">
+            <a href="#" class="flex flex-col items-center gap-1 text-cyber-violet relative group">
+                <i class="fa-solid fa-compass text-lg"></i>
+                <span class="text-[8px] font-mono font-bold">Discover</span>
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyber-violet shadow-[0_0_8px_#8A2BE2]"></div>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center gap-1 text-cyber-textMuted hover:text-white transition-colors">
+                <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                <span class="text-[8px] font-mono">AI Search</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center gap-1 text-cyber-textMuted hover:text-white transition-colors relative">
+                <div class="absolute -top-1 -right-1 w-2 h-2 bg-cyber-emerald rounded-full border border-cyber-base"></div>
+                <i class="fa-solid fa-crosshairs text-lg"></i>
+                <span class="text-[8px] font-mono">Quests</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center gap-1 text-cyber-textMuted hover:text-white transition-colors">
+                <i class="fa-solid fa-layer-group text-lg"></i>
+                <span class="text-[8px] font-mono">Library</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center gap-1 text-cyber-textMuted hover:text-white transition-colors">
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-[8px] font-mono">Profile</span>
+            </a>
+        </nav>
+
+    </main>
+
+    <script>
+        window.addEventListener('load', function() {
+            try {
+                var data = [{
+                    type: 'scatterpolar',
+                    r: [85, 90, 60, 75, 95],
+                    theta: ['Difficulty', 'Story', 'Co-op', 'Loot', 'Sci-Fi'],
+                    fill: 'toself',
+                    fillcolor: 'rgba(138, 43, 226, 0.2)',
+                    line: {
+                        color: '#8A2BE2',
+                        width: 2,
+                        shape: 'spline',
+                        smoothing: 1.3
+                    },
+                    marker: {
+                        color: '#50C878',
+                        size: 6
+                    }
+                }];
+
+                var layout = {
+                    polar: {
+                        radialaxis: {
+                            visible: true,
+                            range: [0, 100],
+                            showline: false,
+                            showticklabels: false,
+                            gridcolor: '#2A2A35',
+                            gridwidth: 1
+                        },
+                        angularaxis: {
+                            tickfont: {
+                                color: '#94969F',
+                                size: 10,
+                                family: 'JetBrains Mono, monospace'
+                            },
+                            linecolor: 'transparent',
+                            gridcolor: '#2A2A35'
+                        },
+                        bgcolor: 'transparent'
+                    },
+                    showlegend: false,
+                    paper_bgcolor: 'transparent',
+                    plot_bgcolor: 'transparent',
+                    margin: { t: 20, r: 20, b: 20, l: 20 },
+                    height: 200
+                };
+
+                var config = {
+                    responsive: true,
+                    displayModeBar: false,
+                    displaylogo: false
+                };
+
+                Plotly.newPlot('radarChart', data, layout, config);
+            } catch(e) {
+                console.error("Chart initialization failed:", e);
+            }
+        });
+    </script>
+</body>
+</html>
